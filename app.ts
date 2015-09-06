@@ -20,10 +20,17 @@ export class TodoApp {
     this.title = 'My TODO app';
   }
 
+  keyup(newTodo, $event) {
+    if ($event.which === 13) {
+      this.addTodo(newTodo);
+    }
+  }
+
   addTodo(newTodo):void {
-    this.todoService.addTodo(newTodo.value);
-    newTodo.value = '';
-    newTodo.focus();
+      this.todoService.addTodo(newTodo.value);
+      newTodo.value = '';
+      newTodo.focus();
+    }
   }
 }
 

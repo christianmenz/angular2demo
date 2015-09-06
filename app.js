@@ -20,6 +20,11 @@ var TodoApp = (function () {
         this.todoService = todoService;
         this.title = 'My TODO app';
     }
+    TodoApp.prototype.keyup = function (newTodo, $event) {
+        if ($event.which === 13) {
+            this.addTodo(newTodo);
+        }
+    };
     TodoApp.prototype.addTodo = function (newTodo) {
         this.todoService.addTodo(newTodo.value);
         newTodo.value = '';

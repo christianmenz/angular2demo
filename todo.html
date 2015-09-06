@@ -1,6 +1,6 @@
 <h1>{{title}}</h1>
 <ul>
   <li *ng-for="#todo of todoService.todos">{{todo}}</li>
-  <input type="text" #newtodo/>
+  <input type="text" #newtodo (keyup)="keyup(newtodo, $event)"/>
   <input type="button" value="add todo" (click)="addTodo(newtodo)"/>
 </ul>
