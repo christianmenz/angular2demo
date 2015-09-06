@@ -1,28 +1,30 @@
 /// <reference path="typings/angular2/angular2.d.ts" />
 
-import {Component, View, bootstrap, CORE_DIRECTIVES} from 'angular2/angular2';
+import {bind, Inject, Component, View, bootstrap, CORE_DIRECTIVES} from 'angular2/angular2';
+import {TodoService} from 'todoService';
 
 @Component({
-  selector: 'my-app'
+  selector: 'todo-app',
+  services: [TodoService]
 })
 @View({
   templateUrl: 'todo.html',
   directives: [CORE_DIRECTIVES]
 })
-class MyAppComponent {
+export class TodoApp {
   title: string;
-  todos: string[];
+  todoService: TodoService;
 
-  constructor() {
+  constructor(@Inject('TodoService') todoService: TodoService) {
+    this.todoService = todoService;
     this.title = 'My TODO app';
-    this.todos = ['Learn Angular', 'Clean house'];
   }
 
   addTodo(newTodo):void {
-    this.todos.push(newTodo.value);
+    this.todoService.addTodo(newTodo.value);
     newTodo.value = '';
     newTodo.focus();
   }
 }
 
-bootstrap(MyAppComponent);
+bootstrap(TodoApp, [TodoService, bind('TodoService').toClass(TodoService)]);
